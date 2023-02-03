@@ -7,6 +7,7 @@ import models
 def evaluation(output, target):
     output = np.array(output)
     target = np.array(target)
+
     true_positive = np.sum(output * target)
     false_positive = np.sum(output * (1 - target))
     false_negative = np.sum((1 - output) * target)
