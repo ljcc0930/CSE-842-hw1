@@ -1,6 +1,7 @@
 import os
 import wget
 import tarfile
+import itertools
 
 
 def ensure_download_data(url, name, dir):
@@ -16,4 +17,8 @@ def ensure_download_data(url, name, dir):
 def load_from_txt(path):
     fin = open(path, 'r')
     lines = fin.readlines()
-    return lines
+    return [line.split(' ') for line in lines]
+
+
+def concat_lists(*args):
+    return list(itertools.chain(*args))
