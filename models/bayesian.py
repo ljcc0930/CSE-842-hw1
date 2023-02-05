@@ -15,9 +15,10 @@ class NaiveBayes:
     def update(self, docs, labels):
         for doc, label in zip(docs, labels):
             self.N_c[label] += 1
-            for line in doc:
-                for word in line:
-                    self.N_w_c[word][label] += 1
+            # for line in doc:
+            #     for word in line:
+            #         self.N_w_c[word][label] += 1
+            self.N_w_c[utils.concat_lists(*doc), label] += 1
 
     def predict(self, docs, k=0):
         P_c = self.N_c / self.N_c.sum()
