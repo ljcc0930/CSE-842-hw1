@@ -19,11 +19,12 @@ class Polarity:
         dataset_compress_name = dataset_url.split('/')[-1]
 
         utils.ensure_download_data(
-            dataset_url, dataset_compress_name, data_dir)
+            dataset_url, data_dir, dataset_compress_name)
 
         dataset_dir = os.path.join(data_dir, 'txt_sentoken')
 
-        dirs = [os.path.join(dataset_dir, cls) for cls in ['neg', 'pos']] # 0 = neg, 1 = pos
+        dirs = [os.path.join(dataset_dir, cls)
+                for cls in ['neg', 'pos']]  # 0 = neg, 1 = pos
 
         self.corpus = []
 
@@ -84,23 +85,3 @@ class Polarity:
                         line[idx] = self.corpus[item]
 
         self._is_encoded = False
-
-
-def get_dataset(name, n_folds=3, data_dir='data'):
-    if name == "polarity":
-        return Polarity(n_folds, data_dir)
-    else:
-        raise NotImplementedError("Dataset '{}' not implemented!".format(name))
-
-
-if __name__ == "__main__":
-    n = 3
-    ds = get_dataset("polarity", n_folds=n)
-    for fold in range(3):
-        train_text, train_label, test_text, test_label = ds.get_datasets(fold)
-        print(len(train_text))
-        print(len(train_label))
-        print(len(test_text))
-        print(len(test_label))
-    ds.encode()
-    ds.decode()

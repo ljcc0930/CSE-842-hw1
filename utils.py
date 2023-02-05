@@ -4,7 +4,7 @@ import tarfile
 import itertools
 
 
-def ensure_download_data(url, name, dir):
+def ensure_download_data(url, dir, name = None):
     file_path = os.path.join(dir, name)
     if not os.path.exists(file_path):
         os.makedirs(dir, exist_ok=True)
@@ -17,7 +17,7 @@ def ensure_download_data(url, name, dir):
 def load_from_txt(path):
     fin = open(path, 'r')
     lines = fin.readlines()
-    return [line.split(' ') for line in lines]
+    return [line.split(' ')[:-1] for line in lines]
 
 
 def concat_lists(*args):

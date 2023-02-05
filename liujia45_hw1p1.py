@@ -1,6 +1,6 @@
 import numpy as np
 
-import dataset
+import datasets
 import models
 
 
@@ -17,7 +17,7 @@ def evaluation(output, target):
 
 def main():
     n_folds = 3
-    data = dataset.get_dataset("polarity", n_folds=n_folds)
+    data = datasets.get_dataset("polarity", n_folds=n_folds)
     data.encode()
 
     for k in [0.1, 1]:
@@ -32,6 +32,17 @@ def main():
                 "naive_bayes", n_corpus=data.n_corpus, n_class=data.n_class)
             model.update(train_text, train_label)
 
+            output = model.predict(train_text, k=k)
+
+            tp, tn, fp, fn = evaluation(output, train_label)
+
+            precision = tp / (tp + fp)
+            recall = tp / (tp + fn)
+            f1 = 2 * (precision * recall) / (precision + recall)
+            accuracy = (tp + tn) / (tp + fp + tn + fn)
+            print("Training:\n\tPrecision: {:.4f}, Recall: {:.4f}, F1: {:.4f}, Accuracy: {:.4f}.".format(
+                precision, recall, f1, accuracy))
+
             print("test fold{}:".format(fold))
             output = model.predict(test_text, k=k)
 
@@ -41,7 +52,7 @@ def main():
             recall = tp / (tp + fn)
             f1 = 2 * (precision * recall) / (precision + recall)
             accuracy = (tp + tn) / (tp + fp + tn + fn)
-            print("Precision: {}, Recall: {}, F1: {}, Accuracy: {}.".format(
+            print("Testing:\n\tPrecision: {:.4f}, Recall: {:.4f}, F1: {:.4f}, Accuracy: {:.4f}.".format(
                 precision, recall, f1, accuracy))
 
 
