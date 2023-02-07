@@ -36,7 +36,7 @@ Performance on testing set (add-1-smooth):
 
 | Model | Features | Precision | Recall | F1 | Accuracy |
 | --- | --- | --- | --- | --- | --- |
-| Naive Bayes | bag-of-words| 0.8127 | 0.7883 | 0.8003 | 0.8030 |
+| Naive Bayes | Bag-of-words| 0.8127 | 0.7883 | 0.8003 | 0.8030 |
 | Naive Bayes | TF-IDF| 0.8534 | 0.7258 | 0.7803 | 0.7985 |
-| Support Vector Machine | bag-of-words| 0.7656 | 0.6396 | 0.6963 | 0.7215 |
+| Support Vector Machine | Bag-of-words| 0.7656 | 0.6396 | 0.6963 | 0.7215 |
 | Support Vector Machine | TF-IDF| 0.8285 | 0.8291 | 0.8288 | 0.8285 |
