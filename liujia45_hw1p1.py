@@ -30,7 +30,7 @@ def train_and_test_fold(dataset, fold, args):
     train_text, train_label, test_text, test_label = dataset.get_datasets(
         fold)
     model = models.get_model(
-        "naive_bayes", n_corpus=dataset.n_corpus, n_class=dataset.n_class, smooth_k=k)
+        "naive_bayes", n_vocabulary=dataset.n_vocabulary, n_class=dataset.n_class, smooth_k=k)
 
     if checkpoint is None or not os.path.exists(checkpoint):
         # training logs

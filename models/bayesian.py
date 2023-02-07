@@ -4,20 +4,21 @@ import utils
 
 
 class NaiveBayes:
-    def __init__(self, n_corpus, n_class, smooth_k=1):
-        self.attrs = ["n_corpus", "n_class", "N_c", "N_w_c", "lP_c", "lP_w_c"]
-        self.n_corpus = n_corpus
+    def __init__(self, n_vocabulary, n_class, smooth_k=1):
+        self.attrs = ["n_vocabulary", "n_class",
+                      "N_c", "N_w_c", "lP_c", "lP_w_c"]
+        self.n_vocabulary = n_vocabulary
         self.n_class = n_class
         self.set_smooth_k(smooth_k)
         self.clear()
-        # P_w_c = np.zeros(n_corpus, n_class)
+        # P_w_c = np.zeros(n_vocabulary, n_class)
 
     def clear(self):
         self.N_c = np.zeros(self.n_class, dtype=int)
-        self.N_w_c = np.zeros([self.n_corpus, self.n_class], dtype=int)
+        self.N_w_c = np.zeros([self.n_vocabulary, self.n_class], dtype=int)
 
         self.lP_c = np.zeros(self.n_class)
-        self.lP_w_c = np.zeros([self.n_corpus, self.n_class])
+        self.lP_w_c = np.zeros([self.n_vocabulary, self.n_class])
 
     def set_smooth_k(self, k):
         self.k = k

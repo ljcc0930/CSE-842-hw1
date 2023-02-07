@@ -26,7 +26,7 @@ class Polarity:
         dirs = [os.path.join(dataset_dir, cls)
                 for cls in ['neg', 'pos']]  # 0 = neg, 1 = pos
 
-        self.corpus = []
+        self.vocabulary = []
 
         self.folds = [[] for x in range(self.n_folds)], [
             [] for x in range(self.n_folds)]
@@ -38,7 +38,7 @@ class Polarity:
                     if file.name.endswith(".txt"):
                         doc = utils.load_from_txt(file.path)
                         data.append(doc)
-                        self.corpus += utils.concat_lists(*doc)
+                        self.vocabulary += utils.concat_lists(*doc)
 
             cur = 0
             n_data = len(data)
@@ -48,9 +48,9 @@ class Polarity:
                 fold1.extend([label] * (nex - cur))
                 cur = nex
 
-        self.corpus = list(np.unique(self.corpus))
-        self.n_corpus = len(self.corpus)
-        self.encode_mapping = {s: i for i, s in enumerate(self.corpus)}
+        self.vocabulary = list(np.unique(self.vocabulary))
+        self.n_vocabulary = len(self.vocabulary)
+        self.encode_mapping = {s: i for i, s in enumerate(self.vocabulary)}
         self._is_encoded = False
 
     def get_datasets(self, fold):
@@ -82,6 +82,6 @@ class Polarity:
             for doc in fold:
                 for line in doc:
                     for idx, item in enumerate(line):
-                        line[idx] = self.corpus[item]
+                        line[idx] = self.vocabulary[item]
 
         self._is_encoded = False
