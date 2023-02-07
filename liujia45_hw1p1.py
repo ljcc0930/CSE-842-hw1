@@ -1,4 +1,5 @@
 import os
+import numpy as np
 
 import datasets
 import models
@@ -11,6 +12,7 @@ def test(model, text, label):
     precision, recall, f1, accuracy = utils.evaluation(output, label)
     print("\tPrecision: {:.4f}, Recall: {:.4f}, F1: {:.4f}, Accuracy: {:.4f}.".format(
         precision, recall, f1, accuracy))
+    return precision, recall, f1, accuracy
 
 
 def train(model, train_text, train_label):
@@ -47,7 +49,7 @@ def train_and_test_fold(dataset, fold, args):
     # testing logs
     print("test fold{}:".format(fold))
     # testing
-    test(model, test_text, test_label)
+    return test(model, test_text, test_label)
 
 
 def main():
@@ -58,8 +60,13 @@ def main():
     data.encode()
 
     if args.testing_fold is None:
+        avg = []
         for fold in range(args.n_folds):
-            train_and_test_fold(data, fold, args)
+            avg.append(train_and_test_fold(data, fold, args))
+        avg = np.mean(avg, axis=0)
+        print("{} folds average testing:".format(args.n_folds))
+        print(
+            "\tPrecision: {:.4f}, Recall: {:.4f}, F1: {:.4f}, Accuracy: {:.4f}.".format(*avg))
     else:
         train_and_test_fold(data, args.testing_fold, args)
 
