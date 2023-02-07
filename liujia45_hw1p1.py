@@ -1,23 +1,10 @@
 import os
 import numpy as np
 
+import arg_parser
 import datasets
 import models
-import utils
-import arg_parser
-
-
-def test(model, text, label):
-    output = model.predict(text)
-    precision, recall, f1, accuracy = utils.evaluation(output, label)
-    print("\tPrecision: {:.4f}, Recall: {:.4f}, F1: {:.4f}, Accuracy: {:.4f}.".format(
-        precision, recall, f1, accuracy))
-    return precision, recall, f1, accuracy
-
-
-def train(model, train_text, train_label):
-    model.update(train_text, train_label)
-    test(model, train_text, train_label)
+import train
 
 
 def train_and_test_fold(dataset, fold, args):
@@ -38,7 +25,7 @@ def train_and_test_fold(dataset, fold, args):
         s = ' fold'.join(['train'] + [str(x) for x in arr])
         print(s + ':')
         # training
-        train(model, train_text, train_label)
+        train.train(model, train_text, train_label)
         # save model
         os.makedirs(save_dir, exist_ok=True)
         save_path = os.path.join(save_dir, "liujia45_fold{}.pkl".format(fold))
@@ -49,7 +36,7 @@ def train_and_test_fold(dataset, fold, args):
     # testing logs
     print("test fold{}:".format(fold))
     # testing
-    return test(model, test_text, test_label)
+    return train.test(model, test_text, test_label)
 
 
 def main():
@@ -59,6 +46,7 @@ def main():
         "polarity", n_folds=args.n_folds, data_dir=args.data_dir)
     data.encode()
 
+    print("----- encode: bow ----- model: naive_bayes -----")
     if args.testing_fold is None:
         avg = []
         for fold in range(args.n_folds):

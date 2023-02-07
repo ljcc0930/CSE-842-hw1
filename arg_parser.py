@@ -8,8 +8,8 @@ def parse_args():
     # dataset arguments
     parser.add_argument('--data-dir', type=str, default='./data',
                         help='Path to save datasets. (default: ./data)')
-    parser.add_argument('--dataset', type=str, default='polarity', choices=["polarity"],
-                        help='Dataset for training and testing. (default: polarity)')
+    # parser.add_argument('--dataset', type=str, default='polarity', choices=["polarity"],
+    #                     help='Dataset for training and testing. (default: polarity)')
     parser.add_argument('--n-folds', type=int, default=3,
                         help='Numbers of folds in testing. (default: 3)')
     parser.add_argument('--testing-fold', type=int, default=None,

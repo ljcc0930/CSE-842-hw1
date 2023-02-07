@@ -11,6 +11,8 @@ class Polarity:
         self.n_folds = n_folds
         self.n_class = 2
 
+        self._is_encoded = False
+
         self.load_data()
 
     def load_data(self):
@@ -54,6 +56,8 @@ class Polarity:
         self._is_encoded = False
 
     def get_datasets(self, fold):
+        assert self._is_encoded
+
         train_text = utils.concat_lists(
             *self.folds[0][:fold], *self.folds[0][fold + 1:])
         train_label = utils.concat_lists(
@@ -74,14 +78,14 @@ class Polarity:
 
         self._is_encoded = True
 
-    def decode(self):
-        if not self._is_encoded:
-            return
+    # def decode(self):
+    #     if not self._is_encoded:
+    #         return
 
-        for fold in self.folds[0]:
-            for doc in fold:
-                for line in doc:
-                    for idx, item in enumerate(line):
-                        line[idx] = self.vocabulary[item]
+    #     for fold in self.folds[0]:
+    #         for doc in fold:
+    #             for line in doc:
+    #                 for idx, item in enumerate(line):
+    #                     line[idx] = self.vocabulary[item]
 
-        self._is_encoded = False
+    #     self._is_encoded = False
