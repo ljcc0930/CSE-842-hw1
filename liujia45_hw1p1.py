@@ -1,3 +1,5 @@
+import os
+
 import datasets
 import models
 import utils
@@ -19,6 +21,8 @@ def train(model, train_text, train_label):
 def train_and_test_fold(dataset, fold, args):
     n_folds = args.n_folds
     k = args.k_smooth
+    checkpoint = args.checkpoint_path
+    save_dir = args.save_dir
 
     # get data and model
     train_text, train_label, test_text, test_label = dataset.get_datasets(
@@ -26,12 +30,19 @@ def train_and_test_fold(dataset, fold, args):
     model = models.get_model(
         "naive_bayes", n_corpus=dataset.n_corpus, n_class=dataset.n_class, smooth_k=k)
 
-    # training logs
-    arr = list(range(1, fold + 1)) + list(range(fold + 2, n_folds + 1))
-    s = ' fold'.join(['train'] + [str(x) for x in arr])
-    print(s + ':')
-    # training
-    train(model, train_text, train_label)
+    if checkpoint is None or not os.path.exists(checkpoint):
+        # training logs
+        arr = list(range(1, fold + 1)) + list(range(fold + 2, n_folds + 1))
+        s = ' fold'.join(['train'] + [str(x) for x in arr])
+        print(s + ':')
+        # training
+        train(model, train_text, train_label)
+        # save model
+        os.makedirs(save_dir, exist_ok=True)
+        save_path = os.path.join(save_dir, "liujia45_fold{}.pkl".format(fold))
+        model.save(save_path)
+    else:
+        model.load(checkpoint)
 
     # testing logs
     print("test fold{}:".format(fold))

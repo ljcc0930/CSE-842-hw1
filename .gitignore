@@ -3,3 +3,6 @@ data
 *.log
 *.pdf
 *.tar.gz
+*.pkl
+*.json
+*.pt

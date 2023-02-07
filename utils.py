@@ -3,6 +3,10 @@ import wget
 import tarfile
 import itertools
 import numpy as np
+import pickle as pkl
+import json
+
+# import torch
 
 
 def evaluation(output, target):
@@ -41,3 +45,23 @@ def load_from_txt(path):
 
 def concat_lists(*args):
     return list(itertools.chain(*args))
+
+def dump_obj(obj, path, method = 'pickle'):
+    if method == "pickle":
+        pkl.dump(obj, open(path, 'wb'))
+    elif method == "json":
+        json.dump(obj, open(path, 'w'))
+    # elif method == "torch":
+    #     torch.save(obj, path)
+    else:
+        raise NotImplementedError("Dump method {} is not implement!")
+
+def load_obj(path, method = 'pickle'):
+    if method == "pickle":
+        return pkl.load(open(path, 'wb'))
+    elif method == "json":
+        return json.load(open(path, 'w'))
+    # elif method == "torch":
+    #     return torch.load(path)
+    else:
+        raise NotImplementedError("Load method {} is not implement!")

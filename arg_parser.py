@@ -18,7 +18,9 @@ def parse_args():
     # model arguments
     parser.add_argument('--k-smooth', type=float, default=1,
                         help='Value of add-k-smoothing in Naive Bayes. (default: 0)')
-    parser.add_argument('--save-dir', type=str, default='./models',
-                        help='Path to save models. (default: ./models)')
+    parser.add_argument('--save-dir', type=str, default='./model',
+                        help='Directory to save models. (default: ./model)')
+    parser.add_argument('--checkpoint-path', type=str, default=None,
+                        help='Path to load pre-trained model. (default: None)')
 
     return parser.parse_args()
