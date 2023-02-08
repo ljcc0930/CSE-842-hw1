@@ -10,11 +10,18 @@ from .polarity import Polarity
 import utils
 
 
-class SklearnPolarity(Polarity):
+class SklearnPolarity:
+    dataset_url = "https://www.cs.cornell.edu/people/pabo/movie-review-data/review_polarity.tar.gz"
     def __init__(self, n_folds, data_dir):
-        super().__init__(n_folds, data_dir)
+        self.data_dir = data_dir
+        self.n_folds = n_folds
+        self.n_class = 2
 
-    def load_data(self):
+        self._is_encoded = False
+
+        self.prepair_data()
+
+    def prepair_data(self):
         dataset_url = self.dataset_url
         data_dir = self.data_dir
         dataset_compress_name = dataset_url.split('/')[-1]
@@ -42,7 +49,7 @@ class SklearnPolarity(Polarity):
             return
         nltk.download('punkt')
         transformer = sklearn.feature_extraction.text.CountVectorizer(
-            min_df=3, tokenizer=nltk.word_tokenize)
+            min_df=0, tokenizer=nltk.word_tokenize)
         self.encoded = transformer.fit_transform(self.dataset.data)
 
         if tfidf:
