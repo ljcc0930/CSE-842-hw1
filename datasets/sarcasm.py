@@ -1,8 +1,5 @@
 import os
-import re
-import numpy as np
 import nltk
-import random
 
 import utils
 from .base import Dataset
