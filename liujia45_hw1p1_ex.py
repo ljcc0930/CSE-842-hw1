@@ -47,7 +47,7 @@ def main():
     utils.set_seed(args.seed)
 
     data = datasets.get_dataset(
-        "polarity", n_folds=args.n_folds, data_dir=args.data_dir)
+        "sarcasm", n_folds=args.n_folds, data_dir=args.data_dir)
     data.encode()
 
     print("----- encode: bow ----- model: naive_bayes -----")

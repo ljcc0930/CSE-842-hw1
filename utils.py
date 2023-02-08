@@ -1,12 +1,25 @@
 import os
 import wget
 import tarfile
+import zipfile
 import itertools
 import numpy as np
 import pickle as pkl
 import json
+import csv
+import random
 
 # import torch
+
+
+def set_seed(seed):
+    # torch.manual_seed(seed)
+    # torch.cuda.manual_seed(seed)
+    # torch.cuda.manual_seed_all(seed)
+    # torch.backends.cudnn.benchmark = False
+    # torch.backends.cudnn.deterministic = True
+    np.random.seed(seed)
+    random.seed(seed)
 
 
 def evaluation(output, target):
@@ -27,14 +40,30 @@ def evaluation(output, target):
     return precision, recall, f1, accuracy
 
 
+def unzip_file(path: str, out_dir):
+    if path.endswith(('.tar.gz', '.tar')):
+        with tarfile.open(path) as file:
+            file.extractall(out_dir)
+    elif path.endswith('.zip'):
+        with zipfile.ZipFile(path, 'r') as file:
+            file.extractall(out_dir)
+
+
 def ensure_download_data(url, dir, name=None):
     file_path = os.path.join(dir, name)
     if not os.path.exists(file_path):
         os.makedirs(dir, exist_ok=True)
         wget.download(url=url, out=dir)
+        unzip_file(file_path, dir)
 
-        file = tarfile.open(file_path)
-        file.extractall(dir)
+
+def load_from_csv(path):
+    items = []
+    with open(path, newline='') as csvfile:
+        reader = csv.DictReader(csvfile)
+        for row in reader:
+            items.append(row)
+    return items
 
 
 def load_from_txt(path):
@@ -46,7 +75,8 @@ def load_from_txt(path):
 def concat_lists(*args):
     return list(itertools.chain(*args))
 
-def dump_obj(obj, path, method = 'pickle'):
+
+def dump_obj(obj, path, method='pickle'):
     if method == "pickle":
         pkl.dump(obj, open(path, 'wb'))
     elif method == "json":
@@ -56,7 +86,8 @@ def dump_obj(obj, path, method = 'pickle'):
     else:
         raise NotImplementedError("Dump method {} is not implement!")
 
-def load_obj(path, method = 'pickle'):
+
+def load_obj(path, method='pickle'):
     if method == "pickle":
         return pkl.load(open(path, 'wb'))
     elif method == "json":

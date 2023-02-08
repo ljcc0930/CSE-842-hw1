@@ -40,6 +40,7 @@ class SklearnPolarity(Polarity):
     def encode(self, tfidf=False):
         if self._is_encoded:
             return
+        nltk.download('punkt')
         transformer = sklearn.feature_extraction.text.CountVectorizer(
             min_df=3, tokenizer=nltk.word_tokenize)
         self.encoded = transformer.fit_transform(self.dataset.data)

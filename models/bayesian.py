@@ -33,13 +33,12 @@ class NaiveBayes:
     def update(self, docs, labels):
         for doc, label in zip(docs, labels):
             self.N_c[label] += 1
-            for line in doc:
-                for word in line:
-                    self.N_w_c[word][label] += 1
+            for word in doc:
+                self.N_w_c[word][label] += 1
         self.finalize()
 
     def predict(self, docs):
-        prob = [np.sum(self.lP_w_c[utils.concat_lists(*doc)],
+        prob = [np.sum(self.lP_w_c[doc],
                        axis=0) + self.lP_c for doc in docs]
 
         return np.argmax(prob, axis=1)
