@@ -12,18 +12,18 @@ Performance on training set (add-1-smooth):
 
 | Fold | Precision | Recall | F1 | Accuracy |
 | --- | --- | --- | --- | --- |
-| 1, 2 | 0.9923 | 0.9700 | 0.9810 | 0.9813 |
-| 0, 2 | 0.9909 | 0.9820 | 0.9864 | 0.9865 |
-| 0, 1 | 0.9939 | 0.9790 | 0.9864 | 0.9865 |
+| 1, 2 | 0.9970 | 0.9805 | 0.9887 | 0.9888 |
+| 0, 2 | 0.9939 | 0.9790 | 0.9864 | 0.9865 |
+| 0, 1 | 0.9879 | 0.9775 | 0.9826 | 0.9827 |
 
 Performance on testing set (add-1-smooth):
 
 | Fold | Precision | Recall | F1 | Accuracy |
 | --- | --- | --- | --- | --- |
-| 0 | 0.8245 | 0.7898 | 0.8067 | 0.8108 |
-| 1 | 0.8254 | 0.8378 | 0.8316 | 0.8303 |
-| 2 | 0.8006 | 0.8293 | 0.8147 | 0.8114 |
-| Avg | 0.8168 | 0.8190 | 0.8177 | 0.8175 |
+| 0 | 0.7935 | 0.8078 | 0.8006 | 0.7988 |
+| 1 | 0.8073 | 0.7297 | 0.7666 | 0.7778 |
+| 2 | 0.8283 | 0.8234 | 0.8258 | 0.8263 |
+| Avg | 0.8097 | 0.7870 | 0.7977 | 0.8010 |
 
 
 ## Question 2
@@ -36,7 +36,7 @@ Performance on testing set (add-1-smooth):
 
 | Model | Features | Precision | Recall | F1 | Accuracy |
 | --- | --- | --- | --- | --- | --- |
-| Naive Bayes | Bag-of-words| 0.8127 | 0.7883 | 0.8003 | 0.8030 |
-| Naive Bayes | TF-IDF| 0.8534 | 0.7258 | 0.7803 | 0.7985 |
-| Support Vector Machine | Bag-of-words| 0.7656 | 0.6396 | 0.6963 | 0.7215 |
-| Support Vector Machine | TF-IDF| 0.8285 | 0.8291 | 0.8288 | 0.8285 |
+| Naive Bayes | Bag-of-words| 0.8116 | 0.7964 | 0.8039 | 0.8055 |
+| Naive Bayes | TF-IDF| 0.8581 | 0.7224 | 0.7758 | 0.7965 |
+| Support Vector Machine | Bag-of-words| 0.7677 | 0.6405 | 0.6978 | 0.7230 |
+| Support Vector Machine | TF-IDF| 0.8215 | 0.8232 | 0.8223 | 0.8220 |

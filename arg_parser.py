@@ -16,7 +16,7 @@ def parse_args():
     parser.add_argument('--n-folds', type=int, default=3,
                         help='Numbers of folds in testing. (default: 3)')
     parser.add_argument('--testing-fold', type=int, default=None,
-                        help='The index of which fold should be in the testing set. (default: Enumerate all fold)')
+                        help='The index of which fold should be in the testing set. (default: Enumerate all folds)')
 
     # model arguments
     parser.add_argument('--k-smooth', type=float, default=1,
