@@ -96,3 +96,9 @@ def load_obj(path, method='pickle'):
     #     return torch.load(path)
     else:
         raise NotImplementedError("Load method {} is not implement!")
+
+
+def get_gram(doc, idx, n):
+    if n > idx:
+        return tuple(doc[:idx + 1])
+    return tuple(doc[idx - n + 1: idx + 1])

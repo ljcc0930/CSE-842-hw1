@@ -15,6 +15,8 @@ def parse_args():
     #                     help='Dataset for training and testing. (default: polarity)')
     parser.add_argument('--n-folds', type=int, default=3,
                         help='Numbers of folds in testing. (default: 3)')
+    parser.add_argument('--n-grams', type=int, default=1,
+                        help='Numbers of grams in encoding. (default: 1)')
     parser.add_argument('--testing-fold', type=int, default=None,
                         help='The index of which fold should be in the testing set. (default: Enumerate all folds)')
 

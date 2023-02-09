@@ -12,9 +12,11 @@ import utils
 
 class SklearnPolarity:
     dataset_url = "https://www.cs.cornell.edu/people/pabo/movie-review-data/review_polarity.tar.gz"
-    def __init__(self, n_folds, data_dir):
+
+    def __init__(self, n_folds, n_grams, data_dir):
         self.data_dir = data_dir
         self.n_folds = n_folds
+        self.n_grams = n_grams
         self.n_class = 2
 
         self._is_encoded = False
@@ -49,7 +51,7 @@ class SklearnPolarity:
             return
         nltk.download('punkt')
         transformer = sklearn.feature_extraction.text.CountVectorizer(
-            min_df=0, tokenizer=nltk.word_tokenize)
+            min_df=0, tokenizer=nltk.word_tokenize, ngram_range=(1, self.n_grams))
         self.encoded = transformer.fit_transform(self.dataset.data)
 
         if tfidf:

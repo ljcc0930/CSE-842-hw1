@@ -8,7 +8,8 @@ import utils
 
 
 class Dataset:
-    def __init__(self, n_folds, data_dir):
+    def __init__(self, n_folds, n_grams, data_dir):
+        self.n_grams = n_grams
         self.data_dir = data_dir
         self.n_folds = n_folds
         self.n_class = 2
@@ -49,11 +50,14 @@ class Dataset:
                 cur = nex
 
     def prepair_vocabulary(self):
-        vocabulary = []
+        vocabulary = set()
         for cls_data in self.data:
             for doc in cls_data:
-                vocabulary += doc
-        self.vocabulary = list(np.unique(vocabulary))
+                for i in range(len(doc)):
+                    for n in range(0, min(self.n_grams, i)):
+                        gram = utils.get_gram(doc, i, n + 1)
+                        vocabulary.add(gram)
+        self.vocabulary = list(vocabulary)
         self.n_vocabulary = len(self.vocabulary)
         self.encode_mapping = {s: i for i, s in enumerate(self.vocabulary)}
         self._is_encoded = False
@@ -74,8 +78,13 @@ class Dataset:
             return
 
         for fold in self.folds[0]:
-            for doc in fold:
-                for idx, word in enumerate(doc):
-                    doc[idx] = self.encode_mapping[word]
+            for idx, doc in enumerate(fold):
+                encoded = []
+                l = len(doc)
+                for i in range(0, l):
+                    for n in range(0, min(self.n_grams, i)):
+                        gram = utils.get_gram(doc, i, n + 1)
+                        encoded.append(self.encode_mapping[gram])
+                fold[idx] = encoded
 
         self._is_encoded = True

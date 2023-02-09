@@ -41,7 +41,7 @@ def main():
         for encode_method in ['bow', 'tfidf']:
             print("----- encode: {} ----- model: {} -----".format(encode_method, model))
             data = datasets.get_dataset(
-                "sklearn_polarity", n_folds=args.n_folds, data_dir=args.data_dir)
+                "sklearn_polarity", n_folds=args.n_folds, data_dir=args.data_dir, n_grams=args.n_grams)
             data.encode(tfidf=(encode_method == "tfidf"))
 
             if args.testing_fold is None:
