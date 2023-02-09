@@ -27,6 +27,7 @@ def train_and_test_fold(dataset, fold, args):
         print(s + ':')
         # training
         train.train(model, train_text, train_label)
+        # model.finalize(5, 2)
         # save model
         os.makedirs(save_dir, exist_ok=True)
         save_path = os.path.join(save_dir, "liujia45_fold{}.pkl".format(fold))

@@ -23,9 +23,15 @@ class NaiveBayes:
     def set_smooth_k(self, k):
         self.k = k
 
-    def finalize(self):
+    def finalize(self, sac=0, alpha=1):
+        N_w_c = self.N_w_c.copy().astype(float) + self.k
+        N_w_c[N_w_c < 1e-9] *= 0
+        N_w_c += 1e-9
+        # cond = (N_w_c[:, 0] + N_w_c[:, 1] > 50) * ((N_w_c[:, 1] / N_w_c[:, 0]) > sac)
+        # print(cond.astype(int).sum())
+        # N_w_c[:, 1][cond] *= alpha
         P_c = self.N_c / self.N_c.sum()
-        P_w_c = (self.N_w_c + self.k) / (self.N_w_c + self.k).sum(axis=0)
+        P_w_c = N_w_c / N_w_c.sum(axis=0)
 
         self.lP_c = np.log(P_c)
         self.lP_w_c = np.log(P_w_c)
