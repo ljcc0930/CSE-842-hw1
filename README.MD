@@ -46,17 +46,17 @@ I explored the regularization parameter of Support Vector Machine on both BOW:
 
 | Model | Features | Precision | Recall | F1 | Accuracy |
 | --- | --- | --- | --- | --- | --- |
-| 1-Support Vector Machine | Bag-of-words | 0.7677 | 0.6405 | 0.6978 | 0.7230 |
-| 2-Support Vector Machine | Bag-of-words | 0.7916 | 0.7011 | 0.7435 | 0.7580 |
-| **3-Support Vector Machine** | Bag-of-words | 0.8171 | 0.7283 | 0.7701 | **0.7825** |
+| 1-SVM | Bag-of-words | 0.7677 | 0.6405 | 0.6978 | 0.7230 |
+| 2-SVM | Bag-of-words | 0.7916 | 0.7011 | 0.7435 | 0.7580 |
+| **3-SVM** | Bag-of-words | 0.8171 | 0.7283 | 0.7701 | **0.7825** |
 
 ,and TF-IDF:
 
 | Model | Features | Precision | Recall | F1 | Accuracy |
 | --- | --- | --- | --- | --- | --- |
-| 1-Support Vector Machine | TF-IDF | 0.8215 | 0.8232 | 0.8223 | 0.8220 |
-| **2-Support Vector Machine** | TF-IDF | 0.8385 | 0.8412 | 0.8398 | **0.8395** |
-| 3-Support Vector Machine | TF-IDF | 0.8368 | 0.8412 | 0.8390 | 0.8385 |
+| 1-SVM | TF-IDF | 0.8215 | 0.8232 | 0.8223 | 0.8220 |
+| **2-SVM** | TF-IDF | 0.8385 | 0.8412 | 0.8398 | **0.8395** |
+| 3-SVM | TF-IDF | 0.8368 | 0.8412 | 0.8390 | 0.8385 |
 
 We can find that 3-SVM perform better on BOW, and 2-SVM performed better on TF-IDF.
 
@@ -66,8 +66,8 @@ I have tested the BOW and TF-IDF encoder on both add-1-smoothing NB and SVM. And
 | --- | --- | --- | --- | --- | --- |
 | Naive Bayes | Bag-of-words| 0.8116 | 0.7964 | 0.8039 | 0.8055 |
 | Naive Bayes | TF-IDF| 0.8581 | 0.7224 | 0.7758 | 0.7965 |
-| 3-Support Vector Machine | Bag-of-words | 0.8171 | 0.7283 | 0.7701 | 0.7825 |
-| **2-Support Vector Machine** | TF-IDF | 0.8385 | 0.8412 | 0.8398 | **0.8395** |
+| 3-SVM | Bag-of-words | 0.8171 | 0.7283 | 0.7701 | 0.7825 |
+| **2-SVM** | **TF-IDF** | 0.8385 | 0.8412 | 0.8398 | **0.8395** |
 
 We can observe that TF-IDF is not worked for NB. When using BOW, SVM worked even worse than NB, but outperformed others when using the TF-IDF encoder.
 
