@@ -12,7 +12,7 @@ I have tried multiple settings of add-k-smoothing with 3-fold testing, and the t
 
 | Add-k-smooth | Precision | Recall | F1 | Accuracy |
 | --- | --- | --- | --- | --- |
-| 0(no smoothing) |  0.7060 | 0.7500 | 0.7270 | 0.7185 |
+| 0 (no smoothing) |  0.7060 | 0.7500 | 0.7270 | 0.7185 |
 | 0.1 | 0.8048 | 0.7570 | 0.7797 | 0.7865 |
 | **1** | 0.8097 | 0.7870 | 0.7977 | **0.8010** |
 
