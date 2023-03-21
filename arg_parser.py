@@ -23,6 +23,8 @@ def parse_args():
     # model arguments
     parser.add_argument('--k-smooth', type=float, default=1,
                         help='Value of add-k-smoothing in Naive Bayes. (default: 1)')
+    parser.add_argument('--C-SVC', type=float, default=1,
+                        help='Value of regularization parameter in Support Vector Machine. (default: 1)')
     parser.add_argument('--save-dir', type=str, default='./model',
                         help='Directory to save models. Only for handcraft NB model. (default: ./model)')
     parser.add_argument('--checkpoint-path', type=str, default=None,

@@ -10,6 +10,7 @@ import train
 def train_and_test_fold(model, dataset, fold, args):
     n_folds = args.n_folds
     k = args.k_smooth
+    c = args.C_SVC
     checkpoint = args.checkpoint_path
 
     train_text, train_label, test_text, test_label = dataset.get_datasets(
@@ -17,6 +18,8 @@ def train_and_test_fold(model, dataset, fold, args):
     kwargs = {}
     if model == "sklearn_naive_bayes":
         kwargs['smooth_k'] = k
+    elif model == "sklearn_svm":
+        kwargs['c'] = c
     model = models.get_model(model, **kwargs)
 
     if checkpoint is None or not os.path.exists(checkpoint):

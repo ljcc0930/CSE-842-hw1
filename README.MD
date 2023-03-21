@@ -8,7 +8,15 @@
 
 ### Results:
 
-Performance on the training set (add-1-smooth):
+I have tried multiple settings of add-k-smoothing with 3-fold testing, and the test results are:
+
+| Add-k-smooth | Precision | Recall | F1 | Accuracy |
+| --- | --- | --- | --- | --- |
+| 0(no smoothing) |  0.7060 | 0.7500 | 0.7270 | 0.7185 |
+| 0.1 | 0.8048 | 0.7570 | 0.7797 | 0.7865 |
+| **1** | 0.8097 | 0.7870 | 0.7977 | **0.8010** |
+
+Then I chose 1 as the smooth parameter. Performance on the training set (add-1-smooth):
 
 | Fold | Precision | Recall | F1 | Accuracy |
 | --- | --- | --- | --- | --- |
@@ -34,12 +42,30 @@ Performance on the testing set (add-1-smooth):
 
 ### Results:
 
+I explored the regularization parameter of Support Vector Machine on both BOW and TF-IDF:
+
+| Model | Features | Precision | Recall | F1 | Accuracy |
+| --- | --- | --- | --- | --- | --- |
+| 1-Support Vector Machine | Bag-of-words | 0.7677 | 0.6405 | 0.6978 | 0.7230 |
+| 2-Support Vector Machine | Bag-of-words | 0.7916 | 0.7011 | 0.7435 | 0.7580 |
+| **3-Support Vector Machine** | Bag-of-words | 0.8171 | 0.7283 | 0.7701 | **0.7825** |
+
+| Model | Features | Precision | Recall | F1 | Accuracy |
+| --- | --- | --- | --- | --- | --- |
+| 1-Support Vector Machine | TF-IDF | 0.8215 | 0.8232 | 0.8223 | 0.8220 |
+| **2-Support Vector Machine** | TF-IDF | 0.8385 | 0.8412 | 0.8398 | **0.8395** |
+| 3-Support Vector Machine | TF-IDF | 0.8368 | 0.8412 | 0.8390 | 0.8385 |
+
+I have tested the BOW and TF-IDF encoder on both add-1-smoothing NB and SVM. And did 3-fold testing, which results are:
+
 | Model | Features | Precision | Recall | F1 | Accuracy |
 | --- | --- | --- | --- | --- | --- |
 | Naive Bayes | Bag-of-words| 0.8116 | 0.7964 | 0.8039 | 0.8055 |
 | Naive Bayes | TF-IDF| 0.8581 | 0.7224 | 0.7758 | 0.7965 |
-| Support Vector Machine | Bag-of-words| 0.7677 | 0.6405 | 0.6978 | 0.7230 |
-| Support Vector Machine | TF-IDF| 0.8215 | 0.8232 | 0.8223 | 0.8220 |
+| 3-Support Vector Machine | Bag-of-words | 0.8171 | 0.7283 | 0.7701 | 0.7825 |
+| **2-Support Vector Machine** | TF-IDF | 0.8385 | 0.8412 | 0.8398 | **0.8395** |
+
+We can observe that TF-IDF is not worked for NB. When using BOW, SVM worked even worse than NB, but outperformed others when using the TF-IDF encoder.
 
 
 ## Question 1 ex
@@ -77,7 +103,7 @@ I downloaded the [Sarcasm V2.0 Corpus](https://nlds.soe.ucsc.edu/sarcasm2) to te
 
 Then we can do a grid search among the `k` and `n`:
 
-![Image](result.png "Title")
+![Image](result.png "Grid search")
 
 Therefore, we can find the highest accuracy. Compared with the baseline:
 
@@ -99,6 +125,8 @@ optional arguments:
                         The index of which fold should be in the 
                         testing set. (default: Enumerate all folds)
   --k-smooth K_SMOOTH   Value of add-k-smoothing in Naive Bayes. (default: 1)
+  --C-SVC C_SVC         Value of regularization parameter in Support
+                        Vector Machine. (default: 1)
   --save-dir SAVE_DIR   Directory to save models. Only for handcraft 
                         NB model. (default: ./model)
   --checkpoint-path CHECKPOINT_PATH
