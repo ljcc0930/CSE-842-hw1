@@ -42,7 +42,7 @@ Performance on the testing set (add-1-smooth):
 
 ### Results:
 
-I explored the regularization parameter of Support Vector Machine on both BOW and TF-IDF:
+I explored the regularization parameter of Support Vector Machine on both BOW:
 
 | Model | Features | Precision | Recall | F1 | Accuracy |
 | --- | --- | --- | --- | --- | --- |
@@ -50,11 +50,15 @@ I explored the regularization parameter of Support Vector Machine on both BOW an
 | 2-Support Vector Machine | Bag-of-words | 0.7916 | 0.7011 | 0.7435 | 0.7580 |
 | **3-Support Vector Machine** | Bag-of-words | 0.8171 | 0.7283 | 0.7701 | **0.7825** |
 
+,and TF-IDF:
+
 | Model | Features | Precision | Recall | F1 | Accuracy |
 | --- | --- | --- | --- | --- | --- |
 | 1-Support Vector Machine | TF-IDF | 0.8215 | 0.8232 | 0.8223 | 0.8220 |
 | **2-Support Vector Machine** | TF-IDF | 0.8385 | 0.8412 | 0.8398 | **0.8395** |
 | 3-Support Vector Machine | TF-IDF | 0.8368 | 0.8412 | 0.8390 | 0.8385 |
+
+We can find that 3-SVM perform better on BOW, and 2-SVM performed better on TF-IDF.
 
 I have tested the BOW and TF-IDF encoder on both add-1-smoothing NB and SVM. And did 3-fold testing, which results are:
 
